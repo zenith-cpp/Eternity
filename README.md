@@ -9,4 +9,4 @@ A C++ Console RPG game.
 - Level up, get better gear
 - Complete quests
 
-# STILL UNDER CONSTRUCTION
+# STILL UNDER CONSTRUCTION, Development is about 25% done.
