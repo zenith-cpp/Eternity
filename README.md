@@ -1,2 +1,12 @@
 # Eternity
-Eternity is a Console RPG game, where you can explore places, talk to npcs, and get some pretty good gear by looting caves, forests or even goblin camps!
+A C++ Console RPG game.
+
+## You can:
+- Talk to NPCS
+- Fast Travel to locations
+- Explore structures
+- Loot caves, forests, camps
+- Level up, get better gear
+- Complete quests
+
+# STILL UNDER CONSTRUCTION
