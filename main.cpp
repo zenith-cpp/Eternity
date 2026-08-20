@@ -240,8 +240,9 @@ int main() {
 	pstory(yellow + "Front Guard" + creset + ": No idea what's inside, but I recommend you read it.");
 	player.add_to_inv(duty_paper);
 	std::cin.ignore();
+	c();
 	pstory(gray + "*You have been released to the village of Nerar.*" + creset);
-	
+	main_ui(player);
 
 	return 0;
 }

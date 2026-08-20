@@ -7,6 +7,7 @@
 #include <thread>
 #include "colors.h"
 #include "../structures.h"
+#include "listof_npcs.h"
 
 
 
@@ -264,49 +265,132 @@ void print_structures(std::string current_place) {
 }
 
 //! Expand this whenever you add new npcs
-void print_npcs(std::string current_place) {
+int select_npc(std::string current_place) {
+	//? FOR NERAR NPCS
+	int choice = 0;
 	if(current_place == nerar.name) {
 		for(int i=0; i<nerar.list_of_npcs.size(); i++) {
 			std::cout << i+1 << ". " << nerar.list_of_npcs[i].name << std::endl;
 		}
+		int choice;
+		std::cout << "> ";
+		std::cin >> choice;
+
 	} else if(current_place == nerar_arys_shop.name) {
 		for(int i=0; i<nerar_arys_shop.list_of_npcs.size(); i++) {
 			std::cout << nerar_arys_shop.list_of_npcs[i].name << std::endl;
 		}
+		int choice;
+		std::cout << "> ";
+		std::cin >> choice;
 	} else if(current_place == nerar_glarys_shop.name) {
 		for(int i=0; i<nerar_glarys_shop.list_of_npcs.size(); i++) {
 			std::cout << nerar_glarys_shop.list_of_npcs[i].name << std::endl;
 		}
+		int choice;
+		std::cout << "> ";
+		std::cin >> choice;
 	} else if(current_place == nerar_blacksmith.name) {
 		for(int i=0; i<nerar_blacksmith.list_of_npcs.size(); i++) {
 			std::cout << nerar_blacksmith.list_of_npcs[i].name << std::endl;
 		}
+		int choice;
+		std::cout << "> ";
+		std::cin >> choice;
 	} else if(current_place == nerar_frontguard_office.name) {
 		for(int i=0; i<nerar_frontguard_office.list_of_npcs.size(); i++) {
 			std::cout << nerar_frontguard_office.list_of_npcs[i].name << std::endl;
 		}
+		int choice;
+		std::cout << "> ";
+		std::cin >> choice;
 	}
+	//? FOR ... NPCS
+
+	return choice-1;
 }
 
 
-void main_ui(std::string place, Character& player) {
+void main_ui(Character& player) {
 	int option;
-	std::cout << "1. Speak to NPCS     (LIST)" << std::endl;
-	std::cout << "2. Explore           (LIST)" << std::endl;
-	std::cout << "3. Read Papers       (LIST)" << std::endl;
-	std::cout << "4. Quick Travel      (LIST)" << std::endl;
-	std::cout << "5. Open Inventory" << std::endl;
-	std::cout << "9. Exit Game" >> std::endl;
-	std::cout << "> ";
-	std::cin >> option;
-	// first, the easiest ones, then the hardest ones
 	do{
+		c();
+		std::cout << "1. Speak to NPCS     (LIST)" << std::endl;
+		std::cout << "2. Explore           (LIST)" << std::endl;
+		std::cout << "3. Read Papers       (LIST)" << std::endl;
+		std::cout << "4. Quick Travel      (LIST)" << std::endl;
+		std::cout << "5. Open Inventory" << std::endl;
+		std::cout << "9. Exit Game" << std::endl;
+		std::cout << "> ";
+		std::cin >> option;
+		// first, the easiest ones, then the hardest ones
 		if(option == 5) {
+			c();
 			player.open_inv();
 		} else if(option == 1) {
-			if(player.current_location == nerar && player.current_structure_location.name == "") {
-				print_npcs(player.current_location);
+			c();
+			if(player.current_location.name == nerar.name && player.current_structure_location.name == "") {
+				int user_choice = select_npc(player.current_location.name);
+				list_of_npcs_nerar[user_choice].talk(player);
+
+
+			} else if(player.current_structure_location.name == nerar_arys_shop.name){
+				int user_choice = select_npc(player.current_structure_location.name);
+				list_of_npcs_nerar_arys_shop[user_choice].talk(player);
+
+
+			} else if(player.current_structure_location.name == nerar_blacksmith.name) {
+				int user_choice = select_npc(player.current_structure_location.name);
+				list_of_npcs_nerar_arys_shop[user_choice].talk(player);
+
+
+			} else if(player.current_structure_location.name == nerar_glarys_shop.name) {
+				int user_choice = select_npc(player.current_structure_location.name);
+				list_of_npcs_nerar_arys_shop[user_choice].talk(player);
+			
+			
+			} //! More locations / structures IF added
+		} else if(option == 3) {
+			c();
+			int lineCounter = 1;
+			std::vector<Item> papers = {};
+			for(size_t i=0; i<player.inventory.size(); i++) {
+
+				if(player.inventory[i].content != "") {
+
+					std::cout << lineCounter << ". " << player.inventory[i].name << std::endl;
+					papers.push_back(player.inventory[i]);
+					lineCounter++;
+
+				}
 			}
+			if(lineCounter == 1) {
+				// Then there is no papers to read
+				pstory(gray + "* No papers to read..." + creset);
+				pstory("Press ENTER to go back");
+				std::cin.ignore();
+				continue;
+			}
+			int selectedPaper;
+			std::cout << lineCounter + 1 << ". Go Back" << std::endl;
+			std::cout << "> ";
+			std::cin >> selectedPaper;
+			if(selectedPaper == lineCounter+1) continue;
+			if(selectedPaper > 0 && selectedPaper <= lineCounter) {
+				papers[selectedPaper-1].read();
+				continue;
+			} else {
+				pstory(red + "Option `" + std::to_string(selectedPaper) + "` is non-existent.");
+				std::cin.ignore();
+				std::cin.ignore();
+				continue;
+			}
+
+		} else if(option == 4) {
+			c();
+			pstory("No Places to quick travel to currently. This is under development.");
+			std::cin.ignore();
+			std::cin.ignore();
 		}
 	}while(option != 9);
 }

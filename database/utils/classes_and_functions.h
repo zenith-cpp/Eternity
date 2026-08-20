@@ -58,7 +58,7 @@ public:
 
 void c();
 void pstory(std::string story);
-void main_ui(std::string place, Character& player); // `place` as in Nerar e.g.
+void main_ui(Character& player);
 void print_structures(std::string current_location);
 void print_npcs(std::string current_location);
 

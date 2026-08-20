@@ -21,9 +21,10 @@ void Item::apply_perks(Character &player) {
 };
 
 void Item::read() {
-	// if readable
+	// if readable.
+	// if not, you're just gonna get an empty string
 	c();
-	std::cout << "*\n" << content << "\n*" << std::endl;
+	std::cout << "************************************************\n" << content << "\n************************************************" << std::endl;
 	std::cin.ignore();
 	std::cin.ignore();
 	c();
