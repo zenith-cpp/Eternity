@@ -31,6 +31,8 @@ extern Weapon fiery_katana;
 extern Weapon zarvokh_katana;
 extern Weapon zarvokh_claymore;
 
+extern Weapon iron_katana_of_yigmar_delli;
+
 // Spears
 extern Weapon pointy_longstick;
 extern Weapon stone_spear;

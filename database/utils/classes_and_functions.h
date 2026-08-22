@@ -36,6 +36,9 @@ public:
 	int personality;
 	Place current_location;
 	Structure current_structure_location;
+	int level;
+	int xp;
+	int max_xp_required;
 	
 
 	Character(std::string char_name, std::string char_class, int max_health, int max_mana, int max_endurance,
@@ -53,6 +56,7 @@ public:
 	void remove_from_inv(Item item);
 	void open_inv();
 	bool has_item(Item item);
+	void level_up();
 };
 
 

@@ -14,10 +14,10 @@ Quest noQuest("no_quest");
 bool dq_health_ring = false;
 bool dq_find_fayee = false;
 
-void Quest::start(NonPlayableCharacter& npc, Character& to) {
+void Quest::start(NonPlayableCharacter* npc, Character& to) {
 	if(this->name == "health_ring") {
 		// Activate the health_ring quest
-		pstory(yellow + npc.name + creset + ": Have you seen my " + green + health_ring.name + creset + "?");;
+		pstory(yellow + npc->name + creset + ": Have you seen my " + green + health_ring.name + creset + "?");;
 		int answer;
 		std::cout << "1. Yes! [Hand over the " << green << health_ring.name << creset << "]" << std::endl;
 		std::cout << "2. No.  " << std::endl;
@@ -28,18 +28,18 @@ void Quest::start(NonPlayableCharacter& npc, Character& to) {
 				c();
 				if(to.has_item(health_ring)){
 					to.remove_from_inv(health_ring);
-					pstory(gray + "* You give " + npc.name + " the " + health_ring.name + ". He put in a good word for you in the shop. *");
+					pstory(gray + "* You give " + npc->name + " the " + health_ring.name + ". He put in a good word for you in the shop. *" + creset);
 					dq_health_ring = true;
 					std::cin.ignore();
 					return;
 				} else {
-					pstory(yellow + npc.name + creset + ": Liar! How could you lie to me like that?!");
+					pstory(yellow + npc->name + creset + ": Why are you lying?");
 					std::cin.ignore();
 					return;
 				}
 				break;
 			case 2:
-				pstory(yellow + npc.name + creset + ": Ah, okay. Please let me know if you do find it.");
+				pstory(yellow + npc->name + creset + ": Ah, okay. Please let me know if you do find it.");
 				break;
 			default:
 				break;

@@ -10,6 +10,8 @@
 #include "database/structures.h"
 #include "database/utils/listof_npcs.h"
 #include "database/utils/listof_structures.h"
+#include "database/enemies.h"
+#include "database/weapons.h"
 
 int main() {
 	c();
@@ -242,6 +244,9 @@ int main() {
 	std::cin.ignore();
 	c();
 	pstory(gray + "*You have been released to the village of Nerar.*" + creset);
+	player.current_location = nerar;
+	enemy_ghost_of_yigmar_delli.print_stats();
+	std::cout << "Yigmar Delli's Weapon dmg: " << iron_katana_of_yigmar_delli.damage << std::endl;
 	main_ui(player);
 
 	return 0;

@@ -10,7 +10,7 @@ public:
 	std::string name;
 
 	Quest(std::string name);
-	void start(NonPlayableCharacter& npc, Character& to);
+	void start(NonPlayableCharacter* npc, Character& to);
 };
 
 extern Quest quest_health_ring;

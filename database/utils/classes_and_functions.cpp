@@ -55,7 +55,10 @@ Character::Character(
       skill_castspelltype_destructive(skill_castspelltype_destructive),
       skill_castspelltype_mystic(skill_castspelltype_mystic),
       skill_castspelltype_curse(skill_castspelltype_curse),
-	  personality(40)
+	  personality(40),
+	  level(1),
+	  xp(0),
+	  max_xp_required(50)
 {
 	overall_damage = max_strength / 2 + this->weapon.damage;
 	inventory = {};
@@ -133,6 +136,114 @@ void Character::print_stats() {
 	std::cout << green << "Weapon Damage               : " << creset << this->weapon.damage << std::endl;
 }
 
+void Character::level_up() {
+	if(this->xp >= this->max_xp_required) {
+		this->xp = 0;
+		this->max_xp_required += 20;
+		int option_primary_attribute;
+		int option_weapon_skills;
+		do {
+			c();
+			pstory(green + "\t\t LEVEL UP" + creset);
+			pstory("What do you want to upgrade?");
+			std::cout << "1. Max Health   (+5)" << std::endl;
+			std::cout << "2. Max Mana     (+5)" << std::endl;
+			std::cout << "3. Strength     (+5)" << std::endl;
+			std::cout << "4. Endurance    (+5)" << std::endl;
+			std::cout << "5. Intelligence (+5)" << std::endl;
+			std::cout << "6. Dexterity    (+5)" << std::endl;
+			std::cout << "> ";
+			std::cin >> option_primary_attribute;
+			if(option_primary_attribute == 1) {
+				this->max_health += 5;
+				this->current_health = this->max_health;
+				this->current_mana = this->max_mana;
+				pstory(green + "Max Health +5!" + creset);
+			} else if(option_primary_attribute == 2) {
+				this->max_mana += 5;
+				this->current_mana = this->max_mana;
+				this->current_health = this->max_health;
+				pstory(green + "Max Mana +5!" + creset);
+			} else if(option_primary_attribute == 3) {
+				this->max_strength += 5;
+				this->current_mana = this->max_mana;
+				this->current_health = this->max_health;
+				pstory(green + "Strength +5!" + creset);
+			} else if(option_primary_attribute == 4) {
+				this->max_endurance += 5;
+				this->current_mana = this->max_mana;
+				this->current_health = this->max_health;
+				pstory(green + "Endurance +5!" + creset);
+			} else if(option_primary_attribute == 5) {
+				this->intelligence += 5;
+				this->current_mana = this->max_mana;
+				this->current_health = this->max_health;
+				pstory(green + "Intelligence +5!" + creset);
+			} else if(option_primary_attribute == 6) {
+				this->dexterity += 5;
+				this->current_mana = this->max_mana;
+				this->current_health = this->max_health;
+				pstory(green + "Max Dexterity +5!" + creset);
+			}
+		}while(option_primary_attribute > 6 && option_primary_attribute < 1);
+
+		do {
+			pstory("What weapon skill do you want to level up?");
+			std::cout << "1. Long Blade                   (+5)" << std::endl;
+			std::cout << "2. Short Blade                  (+5)" << std::endl;
+			std::cout << "3. Spear                        (+5)" << std::endl;
+			std::cout << "4. Bow                          (+5)" << std::endl;
+			std::cout << "5. Cast Spell Type: Destructive (+5)" << std::endl;
+			std::cout << "6. Cast Spell Type: Mystic      (+5)" << std::endl;
+			std::cout << "7. Cast Spell Type: Curse       (+5)" << std::endl;
+			std::cout << "> ";
+			std::cin >> option_weapon_skills;
+			if(option_weapon_skills == 1) {
+				this->skill_longblade += 5;
+				pstory(green + "Skill: Long Blade +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			} else if(option_weapon_skills == 2) {
+				this->skill_shortblade += 5;
+				pstory(green + "Skill: Short Blade +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			} else if(option_weapon_skills == 3) {
+				this->skill_spear += 5;
+				pstory(green + "Skill: Spear +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			} else if(option_weapon_skills == 4) {
+				this->skill_bow += 5;
+				pstory(green + "Skill: Bow +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			} else if(option_weapon_skills == 5) {
+				this->skill_castspelltype_destructive += 5;
+				pstory(green + "Skill: Cast Spell Type: Destructive +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			} else if(option_weapon_skills == 6) {
+				this->skill_castspelltype_mystic += 5;
+				pstory(green + "Skill: Cast Spell Type: Mystic +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			} else if(option_weapon_skills == 7) {
+				this->skill_castspelltype_curse += 5;
+				pstory(green + "Skill: Cast Spell Type: Curse +5!" + creset);
+				std::cout << "Press ENTER to continue..." << std::endl;
+				std::cin.ignore();
+				std::cin.ignore(); // Remove if too many
+			}
+		} while(option_weapon_skills > 7 && option_weapon_skills < 1);
+	}
+}
 
 
 void c() {
@@ -272,7 +383,6 @@ int select_npc(std::string current_place) {
 		for(int i=0; i<nerar.list_of_npcs.size(); i++) {
 			std::cout << i+1 << ". " << nerar.list_of_npcs[i].name << std::endl;
 		}
-		int choice;
 		std::cout << "> ";
 		std::cin >> choice;
 
@@ -280,28 +390,24 @@ int select_npc(std::string current_place) {
 		for(int i=0; i<nerar_arys_shop.list_of_npcs.size(); i++) {
 			std::cout << nerar_arys_shop.list_of_npcs[i].name << std::endl;
 		}
-		int choice;
 		std::cout << "> ";
 		std::cin >> choice;
 	} else if(current_place == nerar_glarys_shop.name) {
 		for(int i=0; i<nerar_glarys_shop.list_of_npcs.size(); i++) {
 			std::cout << nerar_glarys_shop.list_of_npcs[i].name << std::endl;
 		}
-		int choice;
 		std::cout << "> ";
 		std::cin >> choice;
 	} else if(current_place == nerar_blacksmith.name) {
 		for(int i=0; i<nerar_blacksmith.list_of_npcs.size(); i++) {
 			std::cout << nerar_blacksmith.list_of_npcs[i].name << std::endl;
 		}
-		int choice;
 		std::cout << "> ";
 		std::cin >> choice;
 	} else if(current_place == nerar_frontguard_office.name) {
 		for(int i=0; i<nerar_frontguard_office.list_of_npcs.size(); i++) {
 			std::cout << nerar_frontguard_office.list_of_npcs[i].name << std::endl;
 		}
-		int choice;
 		std::cout << "> ";
 		std::cin >> choice;
 	}
@@ -330,23 +436,35 @@ void main_ui(Character& player) {
 		} else if(option == 1) {
 			c();
 			if(player.current_location.name == nerar.name && player.current_structure_location.name == "") {
+				c();
 				int user_choice = select_npc(player.current_location.name);
 				list_of_npcs_nerar[user_choice].talk(player);
+				std::cin.ignore();
+				std::cin.get();
 
 
 			} else if(player.current_structure_location.name == nerar_arys_shop.name){
+				c();
 				int user_choice = select_npc(player.current_structure_location.name);
 				list_of_npcs_nerar_arys_shop[user_choice].talk(player);
+				std::cin.ignore();
+				std::cin.get();
 
 
 			} else if(player.current_structure_location.name == nerar_blacksmith.name) {
+				c();
 				int user_choice = select_npc(player.current_structure_location.name);
 				list_of_npcs_nerar_arys_shop[user_choice].talk(player);
+				std::cin.ignore();
+				std::cin.get();
 
 
 			} else if(player.current_structure_location.name == nerar_glarys_shop.name) {
+				c();
 				int user_choice = select_npc(player.current_structure_location.name);
 				list_of_npcs_nerar_arys_shop[user_choice].talk(player);
+				std::cin.ignore();
+				std::cin.get();
 			
 			
 			} //! More locations / structures IF added

@@ -27,6 +27,9 @@ Weapon fiery_katana("Fiery Katana", "skill_longblade", 22);
 Weapon zarvokh_katana("Zarvokh Katana", "skill_longblade", 27);
 Weapon zarvokh_claymore("Zarvokh Claymore", "skill_longblade", 30);
 
+// Special Long Blades
+Weapon iron_katana_of_yigmar_delli("The Iron Katana of Yigmar Delli", "skill_longblade", 16);
+
 // Spears
 Weapon pointy_longstick("Pointy Longstick", "skill_spear", 4);
 Weapon stone_spear("Stone Spear", "skill_spear", 6);
