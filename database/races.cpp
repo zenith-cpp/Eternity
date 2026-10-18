@@ -20,8 +20,16 @@ const Weapon& weapon
 // Class Warrior: Mid Health, high strength, low endurance and intelligence, but specializes in a lot of weapons
 
 
+<<<<<<< HEAD
 Character class_orc("Player", "orc", 40, 0, 6, 8, 40, 0, 6, 6, 2, 15, 2, 20, 5, 5, 0, 0, 0, 0, wooden_claymore);
 Character class_elf("Player", "elf", 25, 5, 3, 2, 25, 5, 3, 2, 5, 20, 5, 5, 10, 0, 20, 10, 5, 0, twig_bow);
 Character class_high_elf("Player", "high elf", 20, 20, 0, 2, 20, 20, 0, 2, 15, 20, 5, 0, 15, 0, 0, 20, 15, 15, training_sword);
 Character class_viking("Player", "viking", 25, 5, 15, 6, 25, 5, 15, 6, 10, 15, 5, 25, 0, 0, 0, 0, 0, 0, wooden_claymore);
 Character class_warrior("Player", "warrior", 25, 0, 0, 5, 25, 0, 0, 5, 5, 25, 10, 30, 20, 25, 15, 5, 5, 5, wooden_claymore);
+=======
+Character class_orc("Player", "orc", 40, 0, 6, 8, 40, 0, 6, 6, 2, 15, 2, 20, 5, 5, 0, 0, 0, 0, wooden_claymore());
+Character class_elf("Player", "elf", 25, 5, 3, 2, 25, 5, 3, 2, 5, 20, 5, 5, 10, 0, 20, 10, 5, 0, twig_bow());
+Character class_high_elf("Player", "high elf", 20, 20, 0, 2, 20, 20, 0, 2, 15, 20, 5, 0, 15, 0, 0, 20, 15, 15, training_sword());
+Character class_viking("Player", "viking", 25, 5, 15, 6, 25, 5, 15, 6, 10, 15, 5, 25, 0, 0, 0, 0, 0, 0, wooden_claymore());
+Character class_warrior("Player", "warrior", 25, 0, 0, 5, 25, 0, 0, 5, 5, 25, 10, 30, 20, 25, 15, 5, 5, 5, wooden_claymore());
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)

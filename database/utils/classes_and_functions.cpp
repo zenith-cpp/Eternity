@@ -4,10 +4,19 @@
 #include <cstdlib>
 #include <vector>
 #include <chrono>
+<<<<<<< HEAD
+=======
+#include <random>
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 #include <thread>
 #include "colors.h"
 #include "../structures.h"
 #include "listof_npcs.h"
+<<<<<<< HEAD
+=======
+#include "../enemy_places.h"
+#include <iomanip>
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 
 
 
@@ -92,10 +101,24 @@ void Character::heal(int amount) {
 }
 
 void Character::attack(Character &target) {
+<<<<<<< HEAD
 	srand(time(nullptr));
 	int attack_chance = dexterity + luck + (this->get_weapon_skillpoint()/2);
 
 	if(rand() % 100 < attack_chance) {
+=======
+	static std::mt19937 attack_rng(std::random_device{}());
+	static std::uniform_int_distribution<int> roll_distribution(0, 99);
+	static int previous_roll = -1;
+	int attack_roll;
+	do {
+		attack_roll = roll_distribution(attack_rng);
+	} while(attack_roll == previous_roll);
+	previous_roll = attack_roll;
+	int attack_chance = dexterity + luck + (this->get_weapon_skillpoint()/2);
+
+	if(attack_roll < attack_chance) {
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 		int damage_dealt = this->overall_damage - (target.current_endurance / 2.5);
 		if(damage_dealt < 0) {
 			// When this case is triggered, it usually means that the target's endurance was MASSIVE compared to the
@@ -103,6 +126,7 @@ void Character::attack(Character &target) {
 			damage_dealt = 0;
 		}
 		target.current_health -= damage_dealt;
+<<<<<<< HEAD
 
 		std::cout << green << "Attack Success!" << creset << std::endl;
 		std::cout << this->char_name << " Struck " << target.char_name << ", dealing " << red << damage_dealt << creset << " damage." << std::endl;
@@ -134,6 +158,41 @@ void Character::print_stats() {
 	std::cout << green << "Starter Weapon              : " << creset << this->weapon.name                     << std::endl;
 	std::cout << green << "Weapon Type                 : " << creset << this->weapon.type << std::endl;
 	std::cout << green << "Weapon Damage               : " << creset << this->weapon.damage << std::endl;
+=======
+		std::cout << this->char_name << " Struck " << target.char_name << ", dealing " << red << damage_dealt << creset << " damage." << std::endl;
+		return;
+
+	}
+	
+	std::cout << red << this->char_name << " missed the attack." << creset << std::endl;
+}
+
+void Character::print_stats() {
+	std::cout << green << std::left << std::setw(30) << "Name" << ": " << creset << this->char_name << '\n';
+	std::cout << green << std::left << std::setw(30) << "Class" << ": " << creset << this->char_class << '\n';
+	std::cout << green << std::left << std::setw(30) << "Max Health" << ": " << creset << this->max_health << '\n';
+	std::cout << green << std::left << std::setw(30) << "Max Mana" << ": " << creset << this->max_mana << '\n';
+	std::cout << green << std::left << std::setw(30) << "Endurance" << ": " << creset << this->max_endurance << '\n';
+	std::cout << green << std::left << std::setw(30) << "Strength" << ": " << creset << this->max_strength << '\n';
+	std::cout << green << std::left << std::setw(30) << "Intelligence" << ": " << creset << this->intelligence << '\n';
+	std::cout << green << std::left << std::setw(30) << "Dexterity" << ": " << creset << this->dexterity << '\n';
+
+	std::cout << magenta << "\t\tWeapon Skills" << creset << '\n';
+
+	std::cout << green << std::left << std::setw(30) << "Long Blade" << ": " << creset << this->skill_longblade << '\n';
+	std::cout << green << std::left << std::setw(30) << "Short Blade" << ": " << creset << this->skill_shortblade << '\n';
+	std::cout << green << std::left << std::setw(30) << "Spear" << ": " << creset << this->skill_spear << '\n';
+	std::cout << green << std::left << std::setw(30) << "Bow" << ": " << creset << this->skill_bow << '\n';
+	std::cout << green << std::left << std::setw(30) << "Cast Spell Type: Destructive" << ": " << creset << this->skill_castspelltype_destructive << '\n';
+	std::cout << green << std::left << std::setw(30) << "Cast Spell Type: Mystic" << ": " << creset << this->skill_castspelltype_mystic << '\n';
+	std::cout << green << std::left << std::setw(30) << "Cast Spell Type: Curse" << ": " << creset << this->skill_castspelltype_curse << '\n';
+
+	std::cout << magenta << "\t\tWeapon Information" << creset << '\n';
+
+	std::cout << green << std::left << std::setw(30) << "Starter Weapon" << ": " << creset << this->weapon.name << '\n';
+	std::cout << green << std::left << std::setw(30) << "Weapon Type" << ": " << creset << this->weapon.type << '\n';
+	std::cout << green << std::left << std::setw(30) << "Weapon Damage" << ": " << creset << this->weapon.damage << '\n';
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 }
 
 void Character::level_up() {
@@ -360,6 +419,14 @@ bool Character::has_item(Item item) {
 	return false;
 }
 
+<<<<<<< HEAD
+=======
+void Character::change_weapon(Weapon weapon) {
+	pstory("Replaced " + this->weapon.name + " with " + weapon.name + ".");
+	this->weapon = weapon;
+}
+
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 //! Expand this whenever you add new places
 void print_structures(std::string current_place) {
 
@@ -509,15 +576,85 @@ void main_ui(Character& player) {
 			pstory("No Places to quick travel to currently. This is under development.");
 			std::cin.ignore();
 			std::cin.ignore();
+<<<<<<< HEAD
+=======
+		} else if(option == 2) {
+			c();
+			nerar_dummy_test.go_in(player);
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 		}
 	}while(option != 9);
 }
 
 
 
+<<<<<<< HEAD
+=======
+void combat(Character& player, Character& entity2) {
+	int combatOption;
+	c();
+	do {
+		std::cout << red << "ENEMY HP: " << entity2.current_health << "/" << entity2.max_health << creset << std::endl;
+		std::cout << green << player.char_name << "'s HP: " << player.current_health << "/" << player.max_health << creset <<  std::endl;
+		std::cout << std::endl;
+		std::cout << "1. Attack" << std::endl;
+		std::cout << "2. Retreat (Side Effect: Depression) [-2 MAX STRENGTH]" << std::endl;
+		std::cin >> combatOption;
+		if(combatOption == 1) {
+			player.attack(entity2);
+			if(entity2.current_health > 0) {
+				entity2.attack(player); // so just swinging at eachother basically. May the luckiest win
+			}
+		} else if(combatOption == 2) {
+			std::cout << gray << "You retreat and fell into deep depression..." << creset << std::endl;
+			std::cin.ignore();
+			std::cout << green << player.char_name << creset << ": How could I... run like that? Am I really... that weak? I can't do anything right..." << std::endl;
+			player.max_strength -= 2;
+			player.current_strength -= 2;
+			std::cin.ignore();
+			break;
+		}
+	} while(player.current_health > 0 && entity2.current_health > 0);
+	
+	if(player.current_health <= 0) {
+		c();
+		pstory(red + "*Your enemy landed the final blow.*" + creset);
+		pstory(red + "DEATH." + creset);
+		exit(0);
+	} else if(entity2.current_health <= 0) {
+		c();
+		pstory(green + "*You landed the final blow*" + creset);
+		pstory(green + "VICTORY" + creset);
+		int xp_gained = 2 + (player.level * 1.5); // so the lowest you can get is 3.5 XP
+
+		pstory(green + "[+] " + creset + std::to_string(xp_gained) + " XP");
+		std::cout << "Level: " << player.level << std::endl;
+		player.xp += xp_gained;
+		std::cout << "XP: " << player.xp << " / " << player.max_xp_required << std::endl;
+		player.level_up(); // if player is unable to level up, the function will handle it.
+		std::cout << "press ENTER to continue..." << std::endl;
+		std::cin.ignore();
+		std::cin.ignore();
+		return;
+	}
+}
+
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 
 void INITIALIZE_EVERYTHING(std::vector<Structure> list_of_structures_nerar, std::vector<NonPlayableCharacter> list_of_npcs_nerar) {
 	// Initializing places:
 	nerar.list_of_structures = list_of_structures_nerar;
 	nerar.list_of_npcs 		 = list_of_npcs_nerar;
+<<<<<<< HEAD
+=======
+
+	
+	// Enemies
+	enemy_bandit.weapon = pointy_longstick();
+	enemy_goblin.weapon = rusty_dagger();
+	enemy_ogre.weapon   = stone_spear();
+	enemy_ghost.weapon  = iron_dagger();
+	nerar_dummy_test.possible_enemies = {enemy_goblin, enemy_ghost, enemy_ogre};
+
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 }

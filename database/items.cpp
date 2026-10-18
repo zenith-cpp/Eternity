@@ -33,3 +33,8 @@ void Item::read() {
 Item release_paper("Release Paper", false, 0, 0, 0, "Letter from Garokh, The High Elf to Ariok, The Front Guard.\nI, Garokh, allow the release of Prisoner #0192.\nReason: Unknown / Unstated.\nStated exceptions to his release:\n - Assault of a Guard.\n - Theft.\n - Forged / Fake release paper.\n - Failure to comply with authority of any rank.");
 Item health_ring("Health Ring", false, 5, 0, 0, "");
 Item duty_paper("Prisoner #0192's Duty.", false, 0, 0, 0, "Letter from the United Councils.\nYou must be surprised about your release, Prisoner #0192. For obvious reasons, I can't state as to why you were released.\nBoth the Council of Heliq and the Council of Ezrik agreed to your release, however the Council of Sover declined.\nYour Duty: Go to the town of Asora. Find our veteran spy, Fayee Storm. She'll give you further details.");
+<<<<<<< HEAD
+=======
+Item dummyItem1("Dummy Item1", false, 50, 50, 50, "yo mama");
+Item dummyItem2("Dummy Item2", false, 0, 0, 0, "so ugly");
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)

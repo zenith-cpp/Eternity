@@ -24,3 +24,8 @@ public:
 extern Item release_paper;
 extern Item health_ring;
 extern Item duty_paper;
+<<<<<<< HEAD
+=======
+extern Item dummyItem1;
+extern Item dummyItem2;
+>>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
