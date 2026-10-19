@@ -4,19 +4,13 @@
 #include <cstdlib>
 #include <vector>
 #include <chrono>
-<<<<<<< HEAD
-=======
 #include <random>
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 #include <thread>
 #include "colors.h"
 #include "../structures.h"
 #include "listof_npcs.h"
-<<<<<<< HEAD
-=======
 #include "../enemy_places.h"
 #include <iomanip>
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 
 
 
@@ -101,12 +95,6 @@ void Character::heal(int amount) {
 }
 
 void Character::attack(Character &target) {
-<<<<<<< HEAD
-	srand(time(nullptr));
-	int attack_chance = dexterity + luck + (this->get_weapon_skillpoint()/2);
-
-	if(rand() % 100 < attack_chance) {
-=======
 	static std::mt19937 attack_rng(std::random_device{}());
 	static std::uniform_int_distribution<int> roll_distribution(0, 99);
 	static int previous_roll = -1;
@@ -118,7 +106,6 @@ void Character::attack(Character &target) {
 	int attack_chance = dexterity + luck + (this->get_weapon_skillpoint()/2);
 
 	if(attack_roll < attack_chance) {
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 		int damage_dealt = this->overall_damage - (target.current_endurance / 2.5);
 		if(damage_dealt < 0) {
 			// When this case is triggered, it usually means that the target's endurance was MASSIVE compared to the
@@ -126,39 +113,6 @@ void Character::attack(Character &target) {
 			damage_dealt = 0;
 		}
 		target.current_health -= damage_dealt;
-<<<<<<< HEAD
-
-		std::cout << green << "Attack Success!" << creset << std::endl;
-		std::cout << this->char_name << " Struck " << target.char_name << ", dealing " << red << damage_dealt << creset << " damage." << std::endl;
-
-		return;
-	}
-	
-	std::cout << red << "Attack Missed." << creset << std::endl;
-}
-
-void Character::print_stats() {
-	std::cout << green << "Name      				   : " << creset << this->char_name  					   << std::endl;
-	std::cout << green << "Class     				   : " << creset<< this->char_class 					   << std::endl;
-	std::cout << green << "Max Health				   : " << creset<< this->max_health 					   << std::endl;
-	std::cout << green << "Max Mana  				   : " << creset<< this->max_mana   					   << std::endl;
-	std::cout << green << "Endurance 				   : " << creset << this->max_endurance 				   << std::endl;	
-	std::cout << green << "Strength  				   : " << creset << this->max_strength  				   << std::endl;
-	std::cout << green << "Intelligence 			   : " << creset << this->intelligence 				   << std::endl;
-	std::cout << green << "Dexterity				   : " << creset << this->dexterity 					   << std::endl;
-	std::cout << magenta << "\t\tWeapon Skills" << creset << std::endl;
-	std::cout << green << "Long Blade				   : " << creset << this->skill_longblade 				   << std::endl;
-	std::cout << green << "Short Blade				   : " << creset << this->skill_shortblade 			   << std::endl;
-	std::cout << green << "Spear      				   : " << creset << this->skill_spear 					   << std::endl;
-	std::cout << green << "Bow        				   : " << creset << this->skill_bow                       << std::endl;
-	std::cout << green << "Cast Spell Type: Destructive: " << creset << this->skill_castspelltype_destructive << std::endl;
-	std::cout << green << "Cast Spell Type: Mystic     : " << creset<< this->skill_castspelltype_mystic      << std::endl;
-	std::cout << green << "Cast Spell Type: Curse      : " << creset<< this->skill_castspelltype_curse       << std::endl;
-	std::cout << magenta << "\t\t Weapon Information" << creset << std::endl;
-	std::cout << green << "Starter Weapon              : " << creset << this->weapon.name                     << std::endl;
-	std::cout << green << "Weapon Type                 : " << creset << this->weapon.type << std::endl;
-	std::cout << green << "Weapon Damage               : " << creset << this->weapon.damage << std::endl;
-=======
 		std::cout << this->char_name << " Struck " << target.char_name << ", dealing " << red << damage_dealt << creset << " damage." << std::endl;
 		return;
 
@@ -192,7 +146,6 @@ void Character::print_stats() {
 	std::cout << green << std::left << std::setw(30) << "Starter Weapon" << ": " << creset << this->weapon.name << '\n';
 	std::cout << green << std::left << std::setw(30) << "Weapon Type" << ": " << creset << this->weapon.type << '\n';
 	std::cout << green << std::left << std::setw(30) << "Weapon Damage" << ": " << creset << this->weapon.damage << '\n';
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 }
 
 void Character::level_up() {
@@ -419,14 +372,11 @@ bool Character::has_item(Item item) {
 	return false;
 }
 
-<<<<<<< HEAD
-=======
 void Character::change_weapon(Weapon weapon) {
 	pstory("Replaced " + this->weapon.name + " with " + weapon.name + ".");
 	this->weapon = weapon;
 }
 
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 //! Expand this whenever you add new places
 void print_structures(std::string current_place) {
 
@@ -576,20 +526,15 @@ void main_ui(Character& player) {
 			pstory("No Places to quick travel to currently. This is under development.");
 			std::cin.ignore();
 			std::cin.ignore();
-<<<<<<< HEAD
-=======
 		} else if(option == 2) {
 			c();
 			nerar_dummy_test.go_in(player);
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 		}
 	}while(option != 9);
 }
 
 
 
-<<<<<<< HEAD
-=======
 void combat(Character& player, Character& entity2) {
 	int combatOption;
 	c();
@@ -639,14 +584,11 @@ void combat(Character& player, Character& entity2) {
 	}
 }
 
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 
 void INITIALIZE_EVERYTHING(std::vector<Structure> list_of_structures_nerar, std::vector<NonPlayableCharacter> list_of_npcs_nerar) {
 	// Initializing places:
 	nerar.list_of_structures = list_of_structures_nerar;
 	nerar.list_of_npcs 		 = list_of_npcs_nerar;
-<<<<<<< HEAD
-=======
 
 	
 	// Enemies
@@ -656,5 +598,4 @@ void INITIALIZE_EVERYTHING(std::vector<Structure> list_of_structures_nerar, std:
 	enemy_ghost.weapon  = iron_dagger();
 	nerar_dummy_test.possible_enemies = {enemy_goblin, enemy_ghost, enemy_ogre};
 
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 }

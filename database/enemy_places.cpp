@@ -16,8 +16,8 @@ void EnemyPlace::go_in(Character& player) {
     pstory(gray + "* You entered " + this->name + "*");
     int o;
     int enemy_encounter_chance = 20 + (this->place_difficulty * 10); // so 30 is the minimum
-    int loot_encounter_chance = 10 + (this->place_difficulty * 10);
-    int weapon_encounter_chance = 7 + (this->place_difficulty * 10);
+    int loot_encounter_chance = 10 + (this->place_difficulty * 5);
+    int weapon_encounter_chance = 7 + (this->place_difficulty * 2);
     do{
         std::cout << "1. Go forward." << std::endl;
         std::cout << "2. Return to the exit." << std::endl;

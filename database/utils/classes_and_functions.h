@@ -45,11 +45,7 @@ public:
 	int max_strength, int current_health, int current_mana, int current_endurance, int current_strength,
 	int intelligence, int dexterity, int luck, int skill_longblade, int skill_shortblade,
 	int skill_spear, int skill_bow, int skill_castspelltype_destructive, int skill_castspelltype_mystic,
-<<<<<<< HEAD
-	int skill_castspelltype_curse, const Weapon& weapon); // Constructer
-=======
 	int skill_castspelltype_curse, const Weapon& weapon); // Constructor
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 	// So many parameters
 
 	int get_weapon_skillpoint(); // For determining attack chance
@@ -61,10 +57,7 @@ public:
 	void open_inv();
 	bool has_item(Item item);
 	void level_up();
-<<<<<<< HEAD
-=======
 	void change_weapon(Weapon weapon);
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 };
 
 
@@ -73,9 +66,6 @@ void pstory(std::string story);
 void main_ui(Character& player);
 void print_structures(std::string current_location);
 void print_npcs(std::string current_location);
-<<<<<<< HEAD
-=======
 void combat(Character& player, Character& entity2);
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 
 void INITIALIZE_EVERYTHING(std::vector<Structure> list_of_structures_nerar, std::vector<NonPlayableCharacter> list_of_npcs_nerar);

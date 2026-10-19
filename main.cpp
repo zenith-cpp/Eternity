@@ -88,11 +88,7 @@ int main() {
 	std::cin.ignore();
 	// Class (race) selection
 	int selected_race;
-<<<<<<< HEAD
-	Character player = Character("error", "error", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, training_sword);
-=======
 	Character player = Character("error", "error", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, training_sword());
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 	bool run = true;
 	do{
 		c();
@@ -249,12 +245,7 @@ int main() {
 	c();
 	pstory(gray + "*You have been released to the village of Nerar.*" + creset);
 	player.current_location = nerar;
-<<<<<<< HEAD
-	enemy_ghost_of_yigmar_delli.print_stats();
-	std::cout << "Yigmar Delli's Weapon dmg: " << iron_katana_of_yigmar_delli.damage << std::endl;
-=======
 	player.weapon = rusty_dagger();
->>>>>>> 0d3aa7e (PATCH: Fixed initialization issue. Combat works now. Can't say the same for the looting system, though)
 	main_ui(player);
 
 	return 0;
