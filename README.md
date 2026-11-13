@@ -9,4 +9,10 @@ A C++ Console RPG game.
 - Level up, get better gear
 - Complete quests
 
-# STILL UNDER CONSTRUCTION, Development is about 25% done.
+# PROJECT ABANDONED
+## Reason:
+- Messy code
+- Too long development time
+
+# Don't Worry!
+- I'll be developing a brand new RPG console game, exactly like this, but with a different name, more organised code, and maybe different lore and place names.
